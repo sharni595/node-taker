@@ -10,6 +10,12 @@ An app that allows a user to take notes, save them, and delete them. They can vi
 
 ## Images
 
+![Opening Page](./public/assets/img/img1.png)
+
+![Example Written Note](./public/assets/img/img2.png)
+
+![Example Blank Note](./public/assets/img/img3.png)
+
 ## Live URL
-https://sharni595.github.io/node-taker/
+https://node-maker.herokuapp.com/notes
 
