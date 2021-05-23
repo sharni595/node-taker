@@ -1,16 +1,17 @@
 const express = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
-app.use(express.static('public'));
-//parse incoming string or array data
-app.use(express.urlencoded({ extended: true}));
-//parse incoming JSON data
-app.use(express.json());
-// app.use('/api', apiRoutes);
-// app.use('/', htmlRoutes);
+
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+
+
+app.use(express.static('public'));
+
+app.use(express.urlencoded({ extended: true}));
+
+app.use(express.json());
 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
@@ -51,6 +52,18 @@ app.post('/api/notes', (req, res) => {
 
 //read the file
 //filter the array
+
+app.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    fs.readFile(path.join(__dirname, './db/db.json'), 'utf8', (err, data) => {
+        if(err){
+            res.status(500).json(err);
+        } else {
+            res.json(JSON.parse(data));
+            
+        }
+    });
+})
 
 app.listen(PORT, () => {
     console.log('cool');
