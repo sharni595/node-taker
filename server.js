@@ -59,7 +59,18 @@ app.delete('/api/notes/:id', (req, res) => {
         if(err){
             res.status(500).json(err);
         } else {
-            res.json(JSON.parse(data));
+            const oldNotes = JSON.parse(data);
+            const newNotes = oldNotes.filter((note) => {
+                return note.id != id;
+            });
+            fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(newNotes), (err) => {
+                if(err) {
+                    res.status(500).json(err);
+                } else {
+                    res.json(newNotes);
+                }
+            });
+        
             
         }
     });
